@@ -5,6 +5,7 @@
 #O primeiro passo é ter o docker instalado.
 
 #Segue abaixo lista de comandos:
+
 #OBS: Alguns containers demoram um pouco para ficarem prontos para uso, deixarei anotado nesse documento quais.
 
 #1 - Depois de rodar o comando aguardar cerca de 5 minutos.
@@ -16,6 +17,7 @@ $sudo docker run --name mysql-server -t -e MYSQL_DATABASE="zabbix" -e MYSQL_USER
 $sudo docker run --name zabbix-java-gateway -t --restart unless-stopped -d --volume zabbix-java:/var/lib/zabbix zabbix/zabbix-java-gateway:ubuntu-latest
 
 #3 - Depois de rodar o comando aguardar cerca de 5 minutos.
+
 #OBS: Esse container estou iniciando algumas váriaveis para melhorar o desempenho da aplicação( é opcional ).
 
 $sudo docker run --name zabbix-server-mysql -t -e DB_SERVER_HOST="mysql-server" -e MYSQL_DATABASE="zabbix" -e MYSQL_USER="zabbix" -e MYSQL_PASSWORD="pr0dpr0d" -e MYSQL_ROOT_PASSWORD="pr0dpr0d" -e ZBX_JAVAGATEWAY="zabbix-java-gateway" -e ZBX_STARTPOLLERS=20 -e ZBX_STARTPOLLERSUNREACHABLE=10 -e ZBX_STARTPINGERS=10 -e ZBX_STARTDISCOVERERS=10 --link mysql-server:mysql --link zabbix-java-gateway:zabbix-java-gateway -p 10051:10051 --restart unless-stopped -d --volume zabbix-server:/var/lib/zabbix --volume zabbix-snmp:/var/lib/zabbix/snmptraps --volume zabbix-export:/var/lib/zabbix/export zabbix/zabbix-server-mysql:ubuntu-latest
@@ -43,4 +45,4 @@ $sudo docker run -d \
     -v grafana-storage:/var/lib/grafana \
        grafana/grafana:latest-ubuntu
 
-OBS: Após a aplicação Zabbix estiver no ar precisa mudar o host Zabbix Server para o container do zabbix-agent.
+#OBS: Após a aplicação Zabbix estiver no ar precisa mudar o host Zabbix Server para o container do zabbix-agent.
