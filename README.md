@@ -10,7 +10,7 @@
 
 #1 - Depois de rodar o comando aguardar cerca de 5 minutos.
 
-$sudo docker run --name mysql-server -t -e MYSQL_DATABASE="zabbix" -e MYSQL_USER="zabbix" -e MYSQL_PASSWORD="pr0dpr0d" -e MYSQL_ROOT_PASSWORD="pr0dpr0d" -d --volume mysql-server:/var/lib/mysql mysql --character-set-server=utf8 --collation-server=utf8_bin --default-authentication-plugin=mysql_native_password
+sudo docker run --name mysql-server -t -e MYSQL_DATABASE="zabbix" -e MYSQL_USER="zabbix" -e MYSQL_PASSWORD="pr0dpr0d" -e MYSQL_ROOT_PASSWORD="pr0dpr0d" -d --volume mysql-server:/var/lib/mysql mysql --character-set-server=utf8 --collation-server=utf8_bin --default-authentication-plugin=mysql_native_password
 
 #2
 
