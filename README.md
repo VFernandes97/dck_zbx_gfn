@@ -40,5 +40,5 @@ sudo docker run -d -p 3000:3000 --name=grafana -e "GF_INSTALL_PLUGINS=alexanderz
 
 #OBS: Após a aplicação Zabbix estiver no ar precisa mudar o host Zabbix Server para o container do zabbix-agent.
 
-Teste sua aplicação: seuip/zabbix
-EX: 192.168.1.50/zabbix
+#Teste sua aplicação: seuip/zabbix
+#EX: 192.168.1.50/zabbix
