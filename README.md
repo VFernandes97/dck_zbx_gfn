@@ -14,29 +14,29 @@ sudo docker run --name mysql-server -t -e MYSQL_DATABASE="zabbix" -e MYSQL_USER=
 
 #2
 
-$sudo docker run --name zabbix-java-gateway -t --restart unless-stopped -d --volume zabbix-java:/var/lib/zabbix zabbix/zabbix-java-gateway:ubuntu-latest
+sudo docker run --name zabbix-java-gateway -t --restart unless-stopped -d --volume zabbix-java:/var/lib/zabbix zabbix/zabbix-java-gateway:ubuntu-latest
 
 #3 - Depois de rodar o comando aguardar cerca de 5 minutos.
 
 #OBS: Esse container estou iniciando algumas váriaveis para melhorar o desempenho da aplicação( é opcional ).
 
-$sudo docker run --name zabbix-server-mysql -t -e DB_SERVER_HOST="mysql-server" -e MYSQL_DATABASE="zabbix" -e MYSQL_USER="zabbix" -e MYSQL_PASSWORD="pr0dpr0d" -e MYSQL_ROOT_PASSWORD="pr0dpr0d" -e ZBX_JAVAGATEWAY="zabbix-java-gateway" -e ZBX_STARTPOLLERS=20 -e ZBX_STARTPOLLERSUNREACHABLE=10 -e ZBX_STARTPINGERS=10 -e ZBX_STARTDISCOVERERS=10 --link mysql-server:mysql --link zabbix-java-gateway:zabbix-java-gateway -p 10051:10051 --restart unless-stopped -d --volume zabbix-server:/var/lib/zabbix --volume zabbix-snmp:/var/lib/zabbix/snmptraps --volume zabbix-export:/var/lib/zabbix/export zabbix/zabbix-server-mysql:ubuntu-latest
+sudo docker run --name zabbix-server-mysql -t -e DB_SERVER_HOST="mysql-server" -e MYSQL_DATABASE="zabbix" -e MYSQL_USER="zabbix" -e MYSQL_PASSWORD="pr0dpr0d" -e MYSQL_ROOT_PASSWORD="pr0dpr0d" -e ZBX_JAVAGATEWAY="zabbix-java-gateway" -e ZBX_STARTPOLLERS=20 -e ZBX_STARTPOLLERSUNREACHABLE=10 -e ZBX_STARTPINGERS=10 -e ZBX_STARTDISCOVERERS=10 --link mysql-server:mysql --link zabbix-java-gateway:zabbix-java-gateway -p 10051:10051 --restart unless-stopped -d --volume zabbix-server:/var/lib/zabbix --volume zabbix-snmp:/var/lib/zabbix/snmptraps --volume zabbix-export:/var/lib/zabbix/export zabbix/zabbix-server-mysql:ubuntu-latest
 
 #4
 
-$sudo docker run --name zabbix-web-nginx-mysql -t -e DB_SERVER_HOST="mysql-server" -e MYSQL_DATABASE="zabbix" -e MYSQL_USER="zabbix" -e MYSQL_PASSWORD="pr0dpr0d" -e MYSQL_ROOT_PASSWORD="pr0dpr0d" -e ZBX_SERVER_HOST="zabbix-server-mysql" --link mysql-server:mysql --link zabbix-server-mysql:zabbix-server-mysql -p 80:8080 --restart unless-stopped -d --volume zabbix-web-nginx-mysql:/usr/share/zabbix zabbix/zabbix-web-nginx-mysql:ubuntu-latest
+sudo docker run --name zabbix-web-nginx-mysql -t -e DB_SERVER_HOST="mysql-server" -e MYSQL_DATABASE="zabbix" -e MYSQL_USER="zabbix" -e MYSQL_PASSWORD="pr0dpr0d" -e MYSQL_ROOT_PASSWORD="pr0dpr0d" -e ZBX_SERVER_HOST="zabbix-server-mysql" --link mysql-server:mysql --link zabbix-server-mysql:zabbix-server-mysql -p 80:8080 --restart unless-stopped -d --volume zabbix-web-nginx-mysql:/usr/share/zabbix zabbix/zabbix-web-nginx-mysql:ubuntu-latest
 
 #5
 
-$sudo docker run --name zabbix-agent --link mysql-server:mysql --link zabbix-server-mysql:zabbix-server -e ZBX_HOSTNAME="Zabbix server" -e ZBX_SERVER_HOST="zabbix-server" -d --volume zabbix-agent:/var/lib/zabbix zabbix/zabbix-agent:ubuntu-latest
+sudo docker run --name zabbix-agent --link mysql-server:mysql --link zabbix-server-mysql:zabbix-server -e ZBX_HOSTNAME="Zabbix server" -e ZBX_SERVER_HOST="zabbix-server" -d --volume zabbix-agent:/var/lib/zabbix zabbix/zabbix-agent:ubuntu-latest
 
 #6
 
-$sudo docker volume create grafana-storage
+sudo docker volume create grafana-storage
 
 #7
 
-$sudo docker run -d \
+sudo docker run -d \
      -p 3000:3000 \
       --name=grafana \
     -e "GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app" \
