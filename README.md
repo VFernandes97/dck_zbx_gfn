@@ -36,13 +36,6 @@ sudo docker volume create grafana-storage
 
 #7
 
-sudo docker run -d \
-     -p 3000:3000 \
-      --name=grafana \
-    -e "GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app" \
-    -e "GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=alexanderzobnin-zabbix-datasource" \
-    --restart unless-stopped \
-    -v grafana-storage:/var/lib/grafana  \\
-       grafana/grafana:latest-ubuntu
+sudo docker run -d -p 3000:3000 --name=grafana -e "GF_INSTALL_PLUGINS=alexanderzobnin-zabbix-app" -e "GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=alexanderzobnin-zabbix-datasource" --restart unless-stopped -v grafana-storage:/var/lib/grafana grafana/grafana:latest-ubuntu
 
 #OBS: Após a aplicação Zabbix estiver no ar precisa mudar o host Zabbix Server para o container do zabbix-agent.
